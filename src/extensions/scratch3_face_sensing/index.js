@@ -92,14 +92,25 @@ class Scratch3FaceSensingBlocks {
         this.runtime.emit('EXTENSION_DATA_LOADING', true);
 
         const model = FaceDetection.SupportedModels.MediaPipeFaceDetector;
+        // LOCAL MODIFICATION (AI Lab for Kids) — see MODIFICATIONS.md.
+        //
+        // Upstream hardcodes '/chunks/mediapipe/face_detection', an
+        // origin-absolute path that assumes Scratch is served from the site
+        // root. This platform serves it from /scratch/, so that path would miss
+        // and silently fall through to the CDN below. A document-relative path
+        // resolves correctly under any mount point.
         const detectorConfig = {
             runtime: 'mediapipe',
-            solutionPath: '/chunks/mediapipe/face_detection',
+            solutionPath: 'chunks/mediapipe/face_detection',
             maxFaces: 1
         };
 
         FaceDetection.createDetector(model, detectorConfig)
             .catch(() => {
+                // Last resort only. School networks frequently block public
+                // CDNs, so the self-hosted copy above is the path that has to
+                // work; webpack copies the package into the build to provide
+                // it. Reaching here in production means that copy is missing.
                 const fallbackConfig = {
                     runtime: 'mediapipe',
                     solutionPath: `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@${mediapipePackage.version}`,

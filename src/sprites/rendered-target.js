@@ -766,6 +766,38 @@ class RenderedTarget extends Target {
     }
 
     /**
+     * Return whether touching a point given in Scratch coordinates.
+     *
+     * Upstream scratch-vm delegates this to `renderer.drawableTouchingScratchPoint`,
+     * which scratch-render gained after the 2.x line this fork resolves to. Note
+     * this is NOT the same as `isTouchingPoint` above: that one takes *client*
+     * coordinates and goes through `clientSpaceToScratchBounds`, so it cannot be
+     * reused here. The renderer does still ship the two pieces the upstream
+     * method is built from — `Drawable.updateCPURenderAttributes` and
+     * `Drawable.isTouching` — so this reproduces it directly against the drawable.
+     *
+     * Required by the ported Face Sensing extension
+     * (src/extensions/scratch3_face_sensing), which tests whether a sprite is
+     * touching a facial keypoint. Remove this once scratch-render is new enough
+     * to expose `drawableTouchingScratchPoint` and delegate as upstream does.
+     *
+     * @param {number} x X coordinate of the test point, in Scratch space.
+     * @param {number} y Y coordinate of the test point, in Scratch space.
+     * @return {boolean} True iff the rendered target is touching the point.
+     */
+    isTouchingScratchPoint (x, y) {
+        if (!this.renderer) return false;
+        if (typeof this.renderer.drawableTouchingScratchPoint === 'function') {
+            return this.renderer.drawableTouchingScratchPoint(this.drawableID, x, y);
+        }
+        const drawables = this.renderer._allDrawables;
+        const drawable = drawables && drawables[this.drawableID];
+        if (!drawable || typeof drawable.updateCPURenderAttributes !== 'function') return false;
+        drawable.updateCPURenderAttributes();
+        return drawable.isTouching([x, y]);
+    }
+
+    /**
      * Return whether touching a stage edge.
      * @return {boolean} True iff the rendered target is touching the stage edge.
      */

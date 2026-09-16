@@ -27,7 +27,8 @@ const builtinExtensions = {
     ailabVision: () => require('../extensions/scratch3_ailab_vision'),
     ailabVoice: () => require('../extensions/scratch3_ailab_voice'),
     ailabText: () => require('../extensions/scratch3_ailab_text'),
-    ailabNumbers: () => require('../extensions/scratch3_ailab_numbers')
+    ailabNumbers: () => require('../extensions/scratch3_ailab_numbers'),
+    faceSensing: () => require('../extensions/scratch3_face_sensing')
 };
 
 /**

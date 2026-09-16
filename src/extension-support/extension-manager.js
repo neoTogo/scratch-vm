@@ -24,7 +24,10 @@ const builtinExtensions = {
     makeymakey: () => require('../extensions/scratch3_makeymakey'),
     boost: () => require('../extensions/scratch3_boost'),
     gdxfor: () => require('../extensions/scratch3_gdx_for'),
-    ailabVision: () => require('../extensions/scratch3_ailab_vision')
+    ailabVision: () => require('../extensions/scratch3_ailab_vision'),
+    ailabVoice: () => require('../extensions/scratch3_ailab_voice'),
+    ailabText: () => require('../extensions/scratch3_ailab_text'),
+    ailabNumbers: () => require('../extensions/scratch3_ailab_numbers')
 };
 
 /**

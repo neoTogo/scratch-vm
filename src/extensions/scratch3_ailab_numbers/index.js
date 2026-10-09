@@ -49,6 +49,7 @@
 
 const ArgumentType = require('../../extension-support/argument-type');
 const BlockType = require('../../extension-support/block-type');
+const {AILAB_EXTENSION_STYLE} = require('../ailab-shared/branding');
 
 let tf;
 try {
@@ -212,9 +213,7 @@ class Scratch3AILabNumbers {
         return {
             id: 'ailabNumbers',
             name: 'AI Lab Numbers',
-            color1: '#3AA5B3',
-            color2: '#2E8894',
-            color3: '#236A74',
+            ...AILAB_EXTENSION_STYLE,
             blocks: blocks
         };
     }

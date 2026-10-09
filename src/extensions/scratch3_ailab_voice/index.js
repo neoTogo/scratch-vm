@@ -44,6 +44,7 @@
  */
 
 const BlockType = require('../../extension-support/block-type');
+const {AILAB_EXTENSION_STYLE} = require('../ailab-shared/branding');
 
 let tf;
 let speechCommands;
@@ -261,9 +262,7 @@ class Scratch3AILabVoice {
         return {
             id: 'ailabVoice',
             name: 'AI Lab Voice',
-            color1: '#E07ECC',
-            color2: '#C062AC',
-            color3: '#A04A8C',
+            ...AILAB_EXTENSION_STYLE,
             blocks: blocks
         };
     }

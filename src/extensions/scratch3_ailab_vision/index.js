@@ -23,6 +23,7 @@
 
 const ArgumentType = require('../../extension-support/argument-type');
 const BlockType = require('../../extension-support/block-type');
+const {AILAB_EXTENSION_STYLE, AILAB_IMAGE_BLOCK_STYLE} = require('../ailab-shared/branding');
 const Video = require('../../io/video');
 
 let tf;
@@ -279,22 +280,26 @@ class Scratch3AILabVision {
             {
                 opcode: 'webcamImage',
                 blockType: BlockType.REPORTER,
-                text: 'webcam image'
+                text: 'webcam image',
+                ...AILAB_IMAGE_BLOCK_STYLE
             },
             {
                 opcode: 'backdropImage',
                 blockType: BlockType.REPORTER,
-                text: 'backdrop image'
+                text: 'backdrop image',
+                ...AILAB_IMAGE_BLOCK_STYLE
             },
             {
                 opcode: 'costumeImage',
                 blockType: BlockType.REPORTER,
-                text: 'costume image'
+                text: 'costume image',
+                ...AILAB_IMAGE_BLOCK_STYLE
             },
             {
                 opcode: 'customImage',
                 blockType: BlockType.REPORTER,
                 text: 'custom image [URL]',
+                ...AILAB_IMAGE_BLOCK_STYLE,
                 arguments: {
                     URL: {type: ArgumentType.STRING, defaultValue: 'https://...'}
                 }
@@ -367,10 +372,8 @@ class Scratch3AILabVision {
 
         return {
             id: 'ailabVision',
-            name: 'AI Lab Vision',
-            color1: '#4A6CD4',
-            color2: '#3A5BC4',
-            color3: '#2A4AB4',
+            name: 'AI Lab Image',
+            ...AILAB_EXTENSION_STYLE,
             blocks: blocks,
             menus: {
                 labelsMenu: {

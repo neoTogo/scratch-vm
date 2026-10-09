@@ -25,6 +25,8 @@ for the AI Lab for Kids K-8 machine learning platform.
 | `src/extension-support/extension-manager.js` | Registered the four `ailab*` extension IDs and `faceSensing`. |
 | `package.json` | Added `tensorflow-models-speech-commands`, `@tensorflow-models/universal-sentence-encoder`, and (for Face Sensing) `@tensorflow-models/face-detection` + `@mediapipe/face_detection`. |
 | `webpack.config.js` | Stubbed `fs` and `util` browser fallbacks so the speech-commands ESM bundle resolves. |
+| `src/engine/runtime.js` | **Changed (2026-10-08):** an extension block may set its own `color1`/`color2`/`color3`, overriding its extension's colours. Used to give AI Lab image-source blocks their own colour. |
+| `src/extensions/ailab-shared/branding.js` | **Added (2026-10-08):** shared AI Lab for Kids block styling: navy colours and the AI Lab for Kids logo as block and category icon for all four `ailab*` extensions; lime colour and a picture icon for the image-source blocks. The vision extension's display name is now "AI Lab Image" (its ID stays `ailabVision`). |
 
 No upstream scratch-vm behaviour was altered other than the extension
 registration and the additive `isTouchingScratchPoint` method above; the
